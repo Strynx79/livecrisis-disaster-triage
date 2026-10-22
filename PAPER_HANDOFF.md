@@ -74,3 +74,64 @@ dashboard proves integration; only the benchmark proves the claim.
 - [ ] Limitations section present with all 5 items; no "future work" framed as done.
 - [ ] Confusion-matrix/error-analysis figures referenced in text, not just appended.
 - [ ] Demo described as integration proof, benchmark as evidence — never swapped.
+
+---
+
+## DATA APPENDIX (everything below is measured; paste the whole file as context)
+
+### A. Comparison table (test set, n=12,872 unseen-event tweets, unless noted)
+| model | split | accuracy | macro-F1 | weighted-F1 |
+|---|---|---|---|---|
+| TF-IDF+LR | test | 0.7202 | 0.6352 | 0.7238 |
+| TF-IDF+LR | val | 0.7039 | 0.6748 | (in metrics.json) |
+| DistilBERT | test | 0.7781 | 0.6976 | 0.7751 |
+| BERT-base | test | 0.7839 | 0.7064 | 0.7811 |
+| DeepSeek-V4.1-Flash zero-shot | test-subset (n=30) | 0.7000 | 0.4152 | 0.7378 |
+| Gemini-3.6-flash zero-shot | PRELIMINARY (n=19) | 0.7368 | 0.6510 | — (NOT comparable) |
+Latencies: DistilBERT 6.8 ms/ex single, BERT 14.2 ms/ex single (RTX 5060).
+Val selection scores: DistilBERT best val macro-F1 0.6526; BERT-base 0.7316.
+
+### B. Per-class test F1 (precision / recall / F1)
+TF-IDF+LR: caution 0.487; displaced 0.723; infrastructure 0.703; injured 0.907;
+missing_or_found 0.510; not_humanitarian 0.615; other_relevant 0.405;
+requests_urgent 0.444; rescue_volunteering 0.796; sympathy 0.762.
+DistilBERT: caution P0.550 R0.597 F1 0.572; displaced 0.771/0.816/0.793;
+infrastructure 0.752/0.803/0.776; injured 0.901/0.960/0.929; missing_or_found
+0.833/0.505/0.629; not_humanitarian 0.628/0.744/0.681; other_relevant
+0.559/0.377/0.450; requests_urgent 0.378/0.671/0.484; rescue_volunteering
+0.902/0.818/0.858; sympathy 0.768/0.841/0.803.
+BERT-base: caution 0.561/0.609/0.584; displaced 0.734/0.852/0.789;
+infrastructure 0.775/0.778/0.776; injured 0.901/0.965/0.932; missing_or_found
+0.904/0.520/0.660; not_humanitarian 0.643/0.752/0.693; other_relevant
+0.554/0.393/0.460; requests_urgent 0.389/0.668/0.492; rescue_volunteering
+0.899/0.826/0.861; sympathy 0.800/0.837/0.818.
+Reading: all models ace injured_or_dead_people (~0.93) and struggle with
+other_relevant_information (~0.45) and requests_or_urgent_needs (~0.49) —
+vague, overlapping categories. The zero-shot LLM collapses on rare classes;
+fine-tuned models hold precision on missing_or_found_people (0.83–0.90)
+despite only 358 training examples.
+
+### C. Split + training config (configs/config.yaml, seed 42)
+Train (52,911, 13 events): greece_wildfires, dorian, harvey, irma, maria,
+matthew_2016, italy_earthquake, kerala_floods, maryland_floods,
+midwestern_floods, pakistan_earthquake, puebla_earthquake, srilanka_floods.
+Val (10,701): florence, kaikoura_earthquake, canada_wildfires (9/10 classes).
+Test (12,872): california_wildfires, cyclone_idai, ecuador_earthquake.
+DistilBERT: distilbert-base-uncased, 4 epochs, lr 2e-5, max_len 128, fp16,
+eff-batch 32 (16x2), class weights, best-by-val-macroF1. BERT-base: 3 epochs,
+8x4. TF-IDF: 1–2 grams, 20k features, C=1.0, balanced weights.
+
+### D. Environment (results/environment.txt)
+RTX 5060 Laptop 8GB, driver 617.14, torch 2.11.0+cu128, CUDA 12.8, python
+3.12.10, transformers 5.20.2, datasets 5.1.0, sklearn 1.9.1, accelerate 1.15.0,
+flask 3.1.3, openai 3.36.1. Planner: DeepSeek-V4.1-Flash (OpenCode Zen go endpoint).
+
+### E. File manifest (repo root: github.com/Strynx79/livecrisis-disaster-triage)
+Code: src/{data,baseline_tfidf,train_distilbert,train_bert,evaluate_models,
+classify,deepseek_zeroshot,gemini_zeroshot}.py, scripts/test_classify.py.
+Models: models/{distilbert,bert_base}/ (weights EXCLUDED from git >100MB;
+tokenizer+config+label_map included; retrain via run_all.sh). Results:
+metrics.json, comparison_table, 3 confusion matrices, 2 training-curve plots,
+2 error analyses (2,856 / 2,781 test errors, 15 sampled each), environment.txt.
+Docs: docs/{IDEA,NOTES,PROJECT_GUIDE,README,STATUS}.md, RESULTS.md,
+livecrisis-architecture.html, configs/config.yaml, requirements-ml.txt.
