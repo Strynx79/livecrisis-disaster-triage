@@ -604,8 +604,9 @@
 <script>
     // 1. Initializing Map (we have it centered on India initially)
     var map = L.map('map').setView([20.5937, 78.9629], 5);
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; OpenStreetMap &copy; CARTO'
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, Maxar, Earthstar Geographics',
+        maxZoom: 19
     }).addTo(map);
 
     // Global variables to store map layers so we can clear them on new requests
@@ -638,6 +639,23 @@
 
         } catch (error) {
             console.error("Fetch error:", error);
+            // === ML: graceful-degradation demo — backend/Gemini down? show live local triage ===
+            try {
+                const c = await fetch('http://127.0.0.1:5000/classify', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ scenario: input })
+                });
+                if (c.ok) {
+                    const t = await c.json();
+                    const banner = document.getElementById('severityBanner');
+                    banner.style.display = 'block';
+                    banner.className = "severity-banner yellow";
+                    banner.innerText = 'LOCAL TRIAGE (live model): ' + t.label +
+                        ' (' + Math.round(t.confidence * 100) + '%) — full AI plan unavailable (Gemini quota)';
+                    return;
+                }
+            } catch (e) { console.error("Classifier fallback failed:", e); }
             alert("Error connecting to backend. Is Flask running?"); //handles error by putting a notif if cant connect to backend
         } finally {
             // Restore UI state

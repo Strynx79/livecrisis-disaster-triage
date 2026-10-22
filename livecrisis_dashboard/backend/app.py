@@ -20,6 +20,19 @@ def _local_triage(text):
         return _clf(text)
     except Exception:
         return None
+
+
+def _llm_plan(prompt):
+    """Action-plan LLM via DeepSeek (OpenCode Zen); raises on failure."""
+    import os
+    from openai import OpenAI
+    client = OpenAI(base_url='https://opencode.ai/zen/go/v1',
+                    api_key=os.getenv('OPENCODE_API_KEY'))
+    r = client.chat.completions.create(
+        model='deepseek-v4.1-flash', temperature=0.2,
+        extra_headers={'x-opencode-session': 'livecrisis-demo'},
+        messages=[{'role': 'user', 'content': prompt}])
+    return r.choices[0].message.content
 # === END ML ===
 import google.generativeai as genai
 
@@ -104,10 +117,8 @@ Return this exact JSON:
 Use real Indian district names, real agency names like NDRF and SDMA, realistic numbers. severity_level must be exactly RED, ORANGE, or YELLOW. Return ONLY the JSON."""
 
     try:
-        # Call Gemini API using google-generativeai package with gemini-1.5-flash model
-        model = genai.GenerativeModel("gemini-3.6-flash")
-        response = model.generate_content(prompt)
-        raw_text = response.text
+        # Call the planner LLM (DeepSeek via OpenCode Zen; was Gemini)
+        raw_text = _llm_plan(prompt)
         cleaned = clean_gemini_response(raw_text)
         result = json.loads(cleaned)
         # === ML: echo triage label for the dashboard (may be None) ===

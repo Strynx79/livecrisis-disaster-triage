@@ -1,7 +1,7 @@
 # semV_DL_project — LiveCrisis disaster-triage + DL classifier
 
 App: `livecrisis_dashboard/` (Flask `/analyze` + `/classify`, Leaflet dashboard).
-ML: `src/`, `configs/config.yaml`, `models/`, `results/`. Full story: `RESULTS.md`.
+ML: `../src/`, `../configs/config.yaml`, `../models/`, `../results/`. Full story: `../RESULTS.md`.
 
 ## Training and evaluation (reproduces the paper numbers)
 1. Create venv + install: `py -3.12 -m venv .venv`, then the two pip lines in

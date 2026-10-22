@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LiveCrisis Architecture Diagram</title>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'JetBrains Mono', monospace; background: #020617; min-height: 100vh; padding: 2rem; color: white; }
+    .container { max-width: 1200px; margin: 0 auto; }
+    .header { margin-bottom: 2rem; }
+    .header-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem; }
+    .pulse-dot { width: 12px; height: 12px; background: #22d3ee; border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+    h1 { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.025em; }
+    .subtitle { color: #94a3b8; font-size: 0.875rem; margin-left: 1.75rem; }
+    .diagram-container { background: rgba(15, 23, 42, 0.5); border-radius: 1rem; border: 1px solid #1e293b; padding: 1.5rem; overflow-x: auto; }
+    svg { width: 100%; min-width: 900px; display: block; }
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-top: 2rem; }
+    .card { background: rgba(15, 23, 42, 0.5); border-radius: 0.75rem; border: 1px solid #1e293b; padding: 1.25rem; }
+    .card-header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; }
+    .card-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .card-dot.cyan { background: #22d3ee; }
+    .card-dot.emerald { background: #34d399; }
+    .card-dot.violet { background: #a78bfa; }
+    .card-dot.amber { background: #fbbf24; }
+    .card-dot.rose { background: #fb7185; }
+    .card h3 { font-size: 0.875rem; font-weight: 600; }
+    .card ul { list-style: none; color: #94a3b8; font-size: 0.75rem; }
+    .card li { margin-bottom: 0.375rem; }
+    .footer { text-align: center; margin-top: 1.5rem; color: #475569; font-size: 0.75rem; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="header-row">
+        <div class="pulse-dot"></div>
+        <h1>LiveCrisis Architecture</h1>
+      </div>
+      <p class="subtitle">Hybrid triage pipeline — measured classifier decides, constrained LLM plans, dashboard displays</p>
+    </div>
+
+    <div class="diagram-container">
+      <svg viewBox="0 0 1000 780">
+        <defs>
+          <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#64748b" />
+          </marker>
+          <marker id="arrowhead-emerald" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#34d399" />
+          </marker>
+          <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e293b" stroke-width="0.5"/>
+          </pattern>
+        </defs>
+
+        <rect width="100%" height="100%" fill="url(#grid)" />
+
+        <!-- ============ ARROWS (behind boxes) ============ -->
+        <!-- sources -> normalize -->
+        <line x1="500" y1="148" x2="500" y2="178" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+        <!-- normalize -> classifier / location -->
+        <line x1="440" y1="228" x2="360" y2="268" stroke="#34d399" stroke-width="1.5" marker-end="url(#arrowhead-emerald)"/>
+        <line x1="560" y1="228" x2="640" y2="268" stroke="#34d399" stroke-width="1.5" marker-end="url(#arrowhead-emerald)"/>
+        <!-- classifier+location -> corroboration -->
+        <line x1="380" y1="338" x2="460" y2="378" stroke="#34d399" stroke-width="1.5" marker-end="url(#arrowhead-emerald)"/>
+        <line x1="620" y1="338" x2="540" y2="378" stroke="#34d399" stroke-width="1.5" marker-end="url(#arrowhead-emerald)"/>
+        <!-- corroboration -> planner -->
+        <line x1="500" y1="438" x2="500" y2="468" stroke="#fbbf24" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+        <!-- planner -> dashboard -->
+        <line x1="500" y1="548" x2="500" y2="578" stroke="#22d3ee" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+        <!-- humaid -> classifier (dashed, training) -->
+        <line x1="738" y1="303" x2="482" y2="303" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="5,5" marker-end="url(#arrowhead)"/>
+        <!-- classifier -> results (dashed, eval) -->
+        <line x1="258" y1="303" x2="142" y2="303" stroke="#a78bfa" stroke-width="1.5" stroke-dasharray="5,5" marker-end="url(#arrowhead)"/>
+
+        <!-- ============ LIVE PATH (top-down) ============ -->
+        <!-- Sources -->
+        <rect x="390" y="60" width="220" height="88" rx="6" fill="#0f172a"/>
+        <rect x="390" y="60" width="220" height="88" rx="6" fill="rgba(30, 41, 59, 0.5)" stroke="#94a3b8" stroke-width="1.5"/>
+        <text x="500" y="84" fill="white" font-size="12" font-weight="600" text-anchor="middle">Report Sources</text>
+        <text x="500" y="103" fill="#94a3b8" font-size="9" text-anchor="middle">SMS / radio logs / social / manual</text>
+        <text x="500" y="119" fill="#94a3b8" font-size="9" text-anchor="middle">free text in, any channel</text>
+        <text x="500" y="137" fill="#64748b" font-size="8" text-anchor="middle">EXTERNAL INPUT</text>
+
+        <!-- Normalize -->
+        <rect x="400" y="178" width="200" height="50" rx="6" fill="#0f172a"/>
+        <rect x="400" y="178" width="200" height="50" rx="6" fill="rgba(6, 78, 59, 0.4)" stroke="#34d399" stroke-width="1.5"/>
+        <text x="500" y="198" fill="white" font-size="11" font-weight="600" text-anchor="middle">Normalize</text>
+        <text x="500" y="214" fill="#94a3b8" font-size="9" text-anchor="middle">plain short text</text>
+
+        <!-- Classifier (star) -->
+        <rect x="260" y="268" width="220" height="70" rx="6" fill="#0f172a"/>
+        <rect x="260" y="268" width="220" height="70" rx="6" fill="rgba(6, 78, 59, 0.4)" stroke="#34d399" stroke-width="2"/>
+        <text x="370" y="290" fill="white" font-size="11" font-weight="600" text-anchor="middle">Triage Classifier ★</text>
+        <text x="370" y="306" fill="#94a3b8" font-size="9" text-anchor="middle">DistilBERT, 10 labels + conf</text>
+        <text x="370" y="322" fill="#34d399" font-size="8" text-anchor="middle">77.8% acc / 6.8 ms — MEASURED</text>
+
+        <!-- Location -->
+        <rect x="520" y="268" width="220" height="70" rx="6" fill="#0f172a"/>
+        <rect x="520" y="268" width="220" height="70" rx="6" fill="rgba(6, 78, 59, 0.4)" stroke="#34d399" stroke-width="1.5"/>
+        <text x="630" y="290" fill="white" font-size="11" font-weight="600" text-anchor="middle">Location Extract</text>
+        <text x="630" y="306" fill="#94a3b8" font-size="9" text-anchor="middle">LLM JSON: lat / lng</text>
+        <text x="630" y="322" fill="#64748b" font-size="8" text-anchor="middle">NER + gazetteer in prod</text>
+
+        <!-- Corroboration -->
+        <rect x="400" y="378" width="200" height="60" rx="6" fill="#0f172a"/>
+        <rect x="400" y="378" width="200" height="60" rx="6" fill="rgba(120, 53, 15, 0.3)" stroke="#fbbf24" stroke-width="1.5"/>
+        <text x="500" y="400" fill="white" font-size="11" font-weight="600" text-anchor="middle">Corroboration</text>
+        <text x="500" y="416" fill="#94a3b8" font-size="9" text-anchor="middle">independent reports agree?</text>
+        <text x="500" y="430" fill="#64748b" font-size="8" text-anchor="middle">heuristic — NOT field-validated</text>
+
+        <!-- Planner -->
+        <rect x="390" y="468" width="220" height="80" rx="6" fill="#0f172a"/>
+        <rect x="390" y="468" width="220" height="80" rx="6" fill="rgba(120, 53, 15, 0.3)" stroke="#fbbf24" stroke-width="1.5"/>
+        <text x="500" y="490" fill="white" font-size="11" font-weight="600" text-anchor="middle">LLM Planner</text>
+        <text x="500" y="506" fill="#94a3b8" font-size="9" text-anchor="middle">DeepSeek, strict JSON schema</text>
+        <text x="500" y="522" fill="#94a3b8" font-size="9" text-anchor="middle">triage label passed as context</text>
+        <text x="500" y="538" fill="#64748b" font-size="8" text-anchor="middle">plans only — never decides alone</text>
+
+        <!-- Dashboard -->
+        <rect x="370" y="578" width="260" height="80" rx="8" fill="#0f172a"/>
+        <rect x="370" y="578" width="260" height="80" rx="8" fill="rgba(8, 51, 68, 0.4)" stroke="#22d3ee" stroke-width="1.5"/>
+        <text x="500" y="602" fill="white" font-size="12" font-weight="600" text-anchor="middle">Dashboard</text>
+        <text x="500" y="620" fill="#94a3b8" font-size="9" text-anchor="middle">Leaflet map · resources · NDMA phases</text>
+        <text x="500" y="636" fill="#94a3b8" font-size="9" text-anchor="middle">sitrep · contacts · triage badge</text>
+        <text x="500" y="650" fill="#22d3ee" font-size="8" text-anchor="middle">Flask /analyze + /classify :5000</text>
+
+        <!-- ============ OFFLINE BRANCHES ============ -->
+        <!-- HumAID training -->
+        <rect x="740" y="268" width="200" height="70" rx="6" fill="#0f172a"/>
+        <rect x="740" y="268" width="200" height="70" rx="6" fill="rgba(76, 29, 149, 0.4)" stroke="#a78bfa" stroke-width="1.5"/>
+        <text x="840" y="290" fill="white" font-size="11" font-weight="600" text-anchor="middle">HumAID Dataset</text>
+        <text x="840" y="306" fill="#94a3b8" font-size="9" text-anchor="middle">76,484 tweets · 19 events</text>
+        <text x="840" y="322" fill="#a78bfa" font-size="8" text-anchor="middle">split BY EVENT · seed 42</text>
+        <text x="610" y="297" fill="#a78bfa" font-size="8" text-anchor="middle">fine-tune</text>
+
+        <!-- Results -->
+        <rect x="60" y="268" width="200" height="70" rx="6" fill="#0f172a"/>
+        <rect x="60" y="268" width="200" height="70" rx="6" fill="rgba(76, 29, 149, 0.4)" stroke="#a78bfa" stroke-width="1.5"/>
+        <text x="160" y="290" fill="white" font-size="11" font-weight="600" text-anchor="middle">Benchmarks</text>
+        <text x="160" y="306" fill="#94a3b8" font-size="9" text-anchor="middle">TF-IDF · DistilBERT · BERT</text>
+        <text x="160" y="322" fill="#a78bfa" font-size="8" text-anchor="middle">zero-shot LLM · curves · CMs</text>
+        <text x="200" y="297" fill="#a78bfa" font-size="8" text-anchor="middle">evaluated</text>
+
+        <!-- ============ LEGEND ============ -->
+        <text x="60" y="700" fill="white" font-size="10" font-weight="600">Legend</text>
+        <rect x="60" y="712" width="16" height="10" rx="2" fill="rgba(6, 78, 59, 0.4)" stroke="#34d399" stroke-width="1"/>
+        <text x="82" y="720" fill="#94a3b8" font-size="8">Measured component</text>
+        <rect x="240" y="712" width="16" height="10" rx="2" fill="rgba(120, 53, 15, 0.3)" stroke="#fbbf24" stroke-width="1"/>
+        <text x="262" y="720" fill="#94a3b8" font-size="8">LLM / heuristic</text>
+        <rect x="420" y="712" width="16" height="10" rx="2" fill="rgba(8, 51, 68, 0.4)" stroke="#22d3ee" stroke-width="1"/>
+        <text x="442" y="720" fill="#94a3b8" font-size="8">Interface</text>
+        <rect x="560" y="712" width="16" height="10" rx="2" fill="rgba(76, 29, 149, 0.4)" stroke="#a78bfa" stroke-width="1"/>
+        <text x="582" y="720" fill="#94a3b8" font-size="8">Data / eval (offline)</text>
+        <line x1="740" y1="717" x2="756" y2="717" stroke="#a78bfa" stroke-width="1" stroke-dasharray="3,3"/>
+        <text x="762" y="720" fill="#94a3b8" font-size="8">Offline flow</text>
+      </svg>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-dot emerald"></div>
+          <h3>Measured results</h3>
+        </div>
+        <ul>
+          <li>• DistilBERT: 0.778 acc / 0.698 macro-F1 (unseen events)</li>
+          <li>• TF-IDF baseline: 0.720 / 0.635 · BERT: 0.784 / 0.706</li>
+          <li>• Zero-shot LLM: 0.700 acc but 0.415 macro-F1</li>
+          <li>• Single-tweet inference ~7 ms on RTX 5060</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-dot amber"></div>
+          <h3>Design principle</h3>
+        </div>
+        <ul>
+          <li>• Deterministic classifier triages; LLM only plans</li>
+          <li>• Strict JSON schema — bad output rejected, rate measured</li>
+          <li>• Confidence + corroboration gate every displayed fact</li>
+          <li>• Degrades gracefully: classifier runs fully offline</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-dot rose"></div>
+          <h3>Honest limits</h3>
+        </div>
+        <ul>
+          <li>• Tweets differ from real SMS/radio traffic; English-only</li>
+          <li>• LLM plan slots are demo-filled until bound to live feeds</li>
+          <li>• Corroboration heuristic not field-validated</li>
+          <li>• Never tested in a real disaster or offline network</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="footer">
+      LiveCrisis • semV_DL_project • event-split eval, seed 42
+    </p>
+  </div>
+</body>
+</html>
