@@ -1,0 +1,18 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+
+# Secrets (API keys live here; never commit)
+.env
+backend/.env
+livecrisis_dashboard/backend/.env
+
+# Large binaries (GitHub 100MB/file limit; retrain via run_all.sh)
+*.safetensors
+models/*_checkpoints/
+
+# Local caches
+.huggingface/
+*.log

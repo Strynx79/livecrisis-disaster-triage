@@ -1,0 +1,354 @@
+{
+ "hurricane_florence_2018": {
+  "n": 4384,
+  "classes": {
+   "caution_and_advice": 917,
+   "displaced_people_and_evacuations": 446,
+   "infrastructure_and_utility_damage": 224,
+   "injured_or_dead_people": 208,
+   "not_humanitarian": 742,
+   "other_relevant_information": 445,
+   "requests_or_urgent_needs": 38,
+   "rescue_volunteering_or_donation_effort": 1034,
+   "sympathy_and_support": 330
+  },
+  "cols": [
+   "tweet_id",
+   "tweet_text",
+   "class_label"
+  ]
+ },
+ "kaikoura_earthquake_2016": {
+  "n": 1536,
+  "classes": {
+   "caution_and_advice": 345,
+   "displaced_people_and_evacuations": 61,
+   "infrastructure_and_utility_damage": 218,
+   "injured_or_dead_people": 73,
+   "not_humanitarian": 157,
+   "other_relevant_information": 218,
+   "requests_or_urgent_needs": 17,
+   "rescue_volunteering_or_donation_effort": 145,
+   "sympathy_and_support": 302
+  },
+  "cols": [
+   "tweet_id",
+   "tweet_text",
+   "class_label"
+  ]
+ },
+ "kerala_floods_2018": {
+  "n": 5588,
+  "classes": {
+   "caution_and_advice": 97,
+   "displaced_people_and_evacuations": 39,
+   "infrastructure_and_utility_damage": 207,
+   "injured_or_dead_people": 254,
+   "not_humanitarian": 319,
+   "other_relevant_information": 669,
+   "requests_or_urgent_needs": 413,
+   "rescue_volunteering_or_donation_effort": 3005,
+   "sympathy_and_support": 585
+  },
+  "cols": [
+   "tweet_id",
+   "tweet_text",
+   "class_label"
+  ]
+ },
+ "hurricane_harvey_2017": {
+  "n": 6378,
+  "classes": {
+   "caution_and_advice": 379,
+   "displaced_people_and_evacuations": 482,
+   "infrastructure_and_utility_damage": 852,
+   "injured_or_dead_people": 488,
+   "not_humanitarian": 287,
+   "other_relevant_information": 1237,
+   "requests_or_urgent_needs": 233,
+   "rescue_volunteering_or_donation_effort": 1976,
+   "sympathy_and_support": 444
+  },
+  "cols": [
+   "tweet_id",
+   "tweet_text",
+   "class_label"
+  ]
+ },
+ "hurricane_maria_2017": {
+  "n": 5094,
+  "classes": {
+   "caution_and_advice": 154,
+   "displaced_people_and_evacuations": 92,
+   "infrastructure_and_utility_damage": 999,
+   "injured_or_dead_people": 211,
+   "not_humanitarian": 189,
+   "other_relevant_information": 1097,
+   "requests_or_urgent_needs": 498,
+   "rescue_volunteering_or_donation_effort": 1384,
+   "sympathy_and_support": 470
+  },
+  "cols": [
+   "tweet_id",
+   "tweet_text",
+   "class_label"
+  ]
+ },
+ "midwestern_us_floods_2019": {
+  "n": 1316,
+  "classes": {
+   "caution_and_advice": 55,
+   "infrastructure_and_utility_damage": 98,
+   "not_humanitarian": 272,
+   "other_relevant_information": 191,
+   "requests_or_urgent_needs": 32,
+   "rescue_volunteering_or_donation_effort": 552,
+   "sympathy_and_support": 116
+  },
+  "cols": [
+   "tweet_id",
+   "tweet_text",
+   "class_label"
+  ]
+ },
+ "puebla_mexico_earthquake_2017": {
+  "n": 1410,
+  "classes": {
+   "caution_and_advice": 24,
+   "infrastructure_and_utility_damage": 117,
+   "injured_or_dead_people": 178,
+   "not_humanitarian": 27,
+   "other_relevant_information": 76,
+   "requests_or_urgent_needs": 43,
+   "rescue_volunteering_or_donation_effort": 688,
+   "sympathy_and_support": 257
+  },
+  "cols": [
+   "tweet_id",
+   "tweet_text",
+   "class_label"
+  ]
+ },
+ "maryland_floods_2018": {
+  "n": 519,
+  "classes": {
+   "caution_and_advice": 49,
+   "infrastructure_and_utility_damage": 55,
+   "injured_or_dead_people": 39,
+   "missing_or_found_people": 98,
+   "not_humanitarian": 54,
+   "other_relevant_information": 96,
+   "rescue_volunteering_or_donation_effort": 51,
+   "sympathy_and_support": 77
+  },
+  "cols": [
+   "tweet_id",
+   "tweet_text",
+   "class_label"
+  ]
+ },
+ "hurricane_irma_2017": {
+  "n": 6579,
+  "classes": {
+   "caution_and_advice": 429,
+   "displaced_people_and_evacuations": 528,
+   "infrastructure_and_utility_damage": 1317,
+   "injured_or_dead_people": 626,
+   "not_humanitarian": 430,
+   "other_relevant_information": 1651,
+   "requests_or_urgent_needs": 88,
+   "rescue_volunteering_or_donation_effort": 1113,
+   "sympathy_and_support": 397
+  },
+  "cols": [
+   "tweet_id",
+   "tweet_text",
+   "class_label"
+  ]
+ },
+ "ecuador_earthquake_2016": {
+  "n": 1094,
+  "classes": {
+   "caution_and_advice": 21,
+   "infrastructure_and_utility_damage": 49,
+   "injured_or_dead_people": 388,
+   "not_humanitarian": 16,
+   "other_relevant_information": 57,
+   "requests_or_urgent_needs": 64,
+   "rescue_volunteering_or_donation_effort": 276,
+   "sympathy_and_support": 223
+  },
+  "cols": [
+   "tweet_id",
+   "tweet_text",
+   "class_label"
+  ]
+ },
+ "cyclone_idai_2019": {
+  "n": 2753,
+  "classes": {
+   "caution_and_advice": 62,
+   "displaced_people_and_evacuations": 40,
+   "infrastructure_and_utility_damage": 248,
+   "injured_or_dead_people": 303,
+   "missing_or_found_people": 13,
+   "not_humanitarian": 56,
+   "other_relevant_information": 285,
+   "requests_or_urgent_needs": 100,
+   "rescue_volunteering_or_donation_effort": 1308,
+   "sympathy_and_support": 338
+  },
+  "cols": [
+   "tweet_id",
+   "tweet_text",
+   "class_label"
+  ]
+ },
+ "canada_wildfires_2016": {
+  "n": 1569,
+  "classes": {
+   "caution_and_advice": 74,
+   "displaced_people_and_evacuations": 266,
+   "infrastructure_and_utility_damage": 176,
+   "not_humanitarian": 55,
+   "other_relevant_information": 218,
+   "requests_or_urgent_needs": 14,
+   "rescue_volunteering_or_donation_effort": 653,
+   "sympathy_and_support": 113
+  },
+  "cols": [
+   "tweet_id",
+   "tweet_text",
+   "class_label"
+  ]
+ },
+ "italy_earthquake_aug_2016": {
+  "n": 840,
+  "classes": {
+   "infrastructure_and_utility_damage": 38,
+   "injured_or_dead_people": 122,
+   "other_relevant_information": 36,
+   "requests_or_urgent_needs": 21,
+   "rescue_volunteering_or_donation_effort": 218,
+   "sympathy_and_support": 405
+  },
+  "cols": [
+   "tweet_id",
+   "tweet_text",
+   "class_label"
+  ]
+ },
+ "greece_wildfires_2018": {
+  "n": 1060,
+  "classes": {
+   "caution_and_advice": 18,
+   "infrastructure_and_utility_damage": 27,
+   "injured_or_dead_people": 346,
+   "missing_or_found_people": 14,
+   "not_humanitarian": 52,
+   "other_relevant_information": 111,
+   "requests_or_urgent_needs": 18,
+   "rescue_volunteering_or_donation_effort": 249,
+   "sympathy_and_support": 225
+  },
+  "cols": [
+   "tweet_id",
+   "tweet_text",
+   "class_label"
+  ]
+ },
+ "hurricane_dorian_2019": {
+  "n": 5329,
+  "classes": {
+   "caution_and_advice": 958,
+   "displaced_people_and_evacuations": 561,
+   "infrastructure_and_utility_damage": 571,
+   "injured_or_dead_people": 42,
+   "not_humanitarian": 612,
+   "other_relevant_information": 1011,
+   "requests_or_urgent_needs": 125,
+   "rescue_volunteering_or_donation_effort": 691,
+   "sympathy_and_support": 758
+  },
+  "cols": [
+   "tweet_id",
+   "tweet_text",
+   "class_label"
+  ]
+ },
+ "california_wildfires_2018": {
+  "n": 5163,
+  "classes": {
+   "caution_and_advice": 97,
+   "displaced_people_and_evacuations": 258,
+   "infrastructure_and_utility_damage": 295,
+   "injured_or_dead_people": 1362,
+   "missing_or_found_people": 125,
+   "not_humanitarian": 923,
+   "other_relevant_information": 727,
+   "requests_or_urgent_needs": 55,
+   "rescue_volunteering_or_donation_effort": 991,
+   "sympathy_and_support": 330
+  },
+  "cols": [
+   "tweet_id",
+   "tweet_text",
+   "class_label"
+  ]
+ },
+ "pakistan_earthquake_2019": {
+  "n": 1370,
+  "classes": {
+   "caution_and_advice": 50,
+   "infrastructure_and_utility_damage": 87,
+   "injured_or_dead_people": 281,
+   "not_humanitarian": 149,
+   "other_relevant_information": 108,
+   "requests_or_urgent_needs": 13,
+   "rescue_volunteering_or_donation_effort": 106,
+   "sympathy_and_support": 576
+  },
+  "cols": [
+   "tweet_id",
+   "tweet_text",
+   "class_label"
+  ]
+ },
+ "hurricane_matthew_2016": {
+  "n": 1157,
+  "classes": {
+   "caution_and_advice": 25,
+   "displaced_people_and_evacuations": 27,
+   "infrastructure_and_utility_damage": 125,
+   "injured_or_dead_people": 157,
+   "not_humanitarian": 53,
+   "other_relevant_information": 229,
+   "requests_or_urgent_needs": 37,
+   "rescue_volunteering_or_donation_effort": 228,
+   "sympathy_and_support": 276
+  },
+  "cols": [
+   "tweet_id",
+   "tweet_text",
+   "class_label"
+  ]
+ },
+ "srilanka_floods_2017": {
+  "n": 392,
+  "classes": {
+   "caution_and_advice": 20,
+   "infrastructure_and_utility_damage": 12,
+   "injured_or_dead_people": 32,
+   "not_humanitarian": 14,
+   "other_relevant_information": 39,
+   "requests_or_urgent_needs": 24,
+   "rescue_volunteering_or_donation_effort": 223,
+   "sympathy_and_support": 28
+  },
+  "cols": [
+   "tweet_id",
+   "tweet_text",
+   "class_label"
+  ]
+ }
+}

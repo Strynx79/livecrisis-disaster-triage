@@ -1,0 +1,60 @@
+# Central hyperparameter + path config (single source of truth for run_all.sh)
+seed: 42
+max_len: 128
+
+paths:
+  data_dir: data
+  splits_dir: data/splits
+  models_dir: models
+  results_dir: results
+  logs_dir: logs
+
+dataset:
+  source: QCRI/HumAID-events (HuggingFace Hub, verified 2026-10-22)
+  pooled_n: 76484
+  label_set_n: 10   # dont_know_cant_judge absent from all 19 events
+  split: by_event
+  seed: 42
+  test_events: [california_wildfires_2018, cyclone_idai_2019, ecuador_earthquake_2016]   # n=12872
+  val_events: [hurricane_florence_2018, kaikoura_earthquake_2016, canada_wildfires_2016]  # n=10701
+  # train = remaining 13 events, n=52911. maryland kept in train (rarest class).
+  # val has 9/10 classes; selection = macro-F1 over val classes present.
+  imbalance: class_weights   # macro-F1 is the selection metric
+
+baseline_tfidf_lr:
+  ngram_range: [1, 2]
+  max_features: 20000
+  C: 1.0
+  max_iter: 1000
+
+bilstm:   # optional, first to cut if short on time
+  embed_dim: 128
+  hidden_dim: 128
+  epochs: 5
+  lr: 1.0e-3
+
+distilbert:   # main overnight job
+  model: distilbert-base-uncased
+  epochs: 4
+  lr: 2.0e-5
+  effective_batch: 32
+  per_device_batch: 16   # halve to 8 on OOM, accumulation x4
+  grad_accum_steps: 2
+  fp16: true
+  select_by: val_macro_f1
+  save_every_epoch: true
+
+bert_base:   # conditional: only if distilbert finishes with night to spare
+  model: bert-base-uncased
+  epochs: 3
+  lr: 2.0e-5
+  effective_batch: 32
+  per_device_batch: 8
+  grad_accum_steps: 4
+  fp16: true
+  select_by: val_macro_f1
+
+gemini_zeroshot:
+  subset_n: 200
+  cache_to_disk: true
+  max_retries: 3

@@ -1,0 +1,16 @@
+# Environment (Step 0; ML deps appended as installed)
+
+GPU: NVIDIA GeForce RTX 5060 Laptop GPU
+VRAM: 8151 MiB (~8 GB)
+Driver: 617.14 (nvidia-smi)
+CUDA runtime (torch build): 12.8
+torch: 2.11.0+cu128 (CUDA wheel, Blackwell sm_120 compatible)
+torch.cuda.is_available(): True (verified + 1000x1000 CUDA matmul, 2026-10-21)
+python: 3.12.10 (project .venv)
+OS: Windows 11 (git-bash shell)
+numpy: 2.5.4 (installed Step 1)
+transformers: 5.20.2 (installed Step 1)
+scikit-learn: 1.9.1 (installed Step 1)
+datasets: 5.1.0 (installed Step 1)
+accelerate: 1.15.0 (installed Step 1; fp16)
+Gemini model in app.py: gemini-3.6-flash (verify at eval time; comment says 1.5-flash)
